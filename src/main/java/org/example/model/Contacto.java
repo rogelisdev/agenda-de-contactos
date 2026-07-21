@@ -1,7 +1,7 @@
 package org.example.model;
 
 public class Contacto {
-
+    private Long id;
     private String nombre;
     private String apellido;
     private String email;
@@ -10,11 +10,20 @@ public class Contacto {
     public Contacto() {
     }
 
-    public Contacto(String nombre, String apellido, String email, String telefono) {
+    public Contacto(Long id, String nombre, String apellido, String email, String telefono) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
