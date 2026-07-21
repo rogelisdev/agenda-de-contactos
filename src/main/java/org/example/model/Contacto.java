@@ -1,29 +1,16 @@
 package org.example.model;
 
+import org.example.util.Validacion;
+
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class Contacto {
-    private static final Pattern TELEFONO_PATTERN =
-            Pattern.compile("^(\\+\\d{1,3}[ ]?)?\\d{3}([ ]?\\d{3}){2}$");
-    private static final Pattern CORREO_PATTERN =
-            Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+
     private Long id;
     private String nombre;
     private String apellido;
     private String email;
     private String telefono;
-
-    /* public Contacto() {
-    } */
-
-    /* public Contacto(String nombre, String apellido, String email, String telefono) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.telefono = telefono;
-    } */
 
     public Contacto(Long id, String nombre, String apellido, String email, String telefono) {
         this(nombre, apellido, email, telefono);
@@ -50,7 +37,7 @@ public class Contacto {
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) {
+        if (Validacion.esTextoVacio(nombre)) {
             throw new IllegalArgumentException("El nombre no puede estar vacío.");
         }
         this.nombre = nombre.trim();
@@ -61,7 +48,7 @@ public class Contacto {
     }
 
     public void setApellido(String apellido) {
-        if (apellido == null || apellido.isBlank()) {
+        if (Validacion.esTextoVacio(apellido)) {
             throw new IllegalArgumentException("El apellido no puede estar vacío.");
         }
         this.apellido = apellido.trim();
@@ -72,11 +59,14 @@ public class Contacto {
     }
 
     public void setEmail(String email) {
-        if (email == null || !CORREO_PATTERN.matcher(email.trim()).matches()) {
+
+        if (!Validacion.esEmailValido(email)) {
             throw new IllegalArgumentException(
-                    "Formato de correo inválido. Ejemplo válido: 'usuario@dominio.com'.");
+                    "Formato de correo inválido. Ejemplo: usuario@dominio.com");
         }
-        this.email = email.trim();
+
+        // normalizar
+        this.email = email.trim().toLowerCase();
     }
 
     public String getTelefono() {
@@ -84,22 +74,23 @@ public class Contacto {
     }
 
     public void setTelefono(String telefono) {
-        if (telefono == null || !TELEFONO_PATTERN.matcher(telefono.trim()).matches()) {
-            throw new IllegalArgumentException(
-                    "Formato de teléfono inválido. Ejemplos válidos: '+34 600 000 000' o '600000000'.");
-        }
-        this.telefono = telefono.trim();
-    }
 
-    /* public String toString() {
-        return nombre + " " + apellido + " - " + telefono + " - " + email;
-    } */
+        if (!Validacion.esTelefonoValido(telefono)) {
+            throw new IllegalArgumentException(
+                    "Formato inválido. Ingrese un teléfono válido (ej: 3001234567)");
+        }
+
+        // guardar limpio (solo números)
+        this.telefono = telefono.replaceAll("\\D", "");
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Contacto)) return false;
+
         Contacto contacto = (Contacto) o;
+
         return nombre.equalsIgnoreCase(contacto.nombre)
                 && apellido.equalsIgnoreCase(contacto.apellido);
     }

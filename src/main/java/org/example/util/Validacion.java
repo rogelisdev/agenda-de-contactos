@@ -6,7 +6,13 @@ public class Validacion {
     }
 
     public static boolean esTelefonoValido(String telefono){
-        return telefono != null && telefono.matches("\\d{7,15}");
+
+        if (telefono == null) return false;
+
+        String limpio = telefono.replaceAll("\\D", "");
+
+
+        return limpio.length() >= 7 && limpio.length() <= 15;
     }
 
     public static boolean esEmailValido(String email){

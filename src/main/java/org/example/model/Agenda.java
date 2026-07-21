@@ -10,7 +10,7 @@ public class Agenda {
     private static final int CAPACIDAD_POR_DEFECTO = 10;
 
     private final List<Contacto> contactos;
-    private final int capacidadMaxima;
+    private int capacidadMaxima;
 
     public Agenda() {
         this(CAPACIDAD_POR_DEFECTO);
@@ -79,5 +79,11 @@ public class Agenda {
                 .filter(c -> c.getNombre().equalsIgnoreCase(nombre)
                         && c.getApellido().equalsIgnoreCase(apellido))
                 .findFirst();
+    }
+    public void expandirCapacidad(int nuevaCapacidad) {
+        if (nuevaCapacidad <= capacidadMaxima) {
+            throw new IllegalArgumentException("La nueva capacidad debe ser mayor a la actual");
+        }
+        this.capacidadMaxima = nuevaCapacidad;
     }
 }

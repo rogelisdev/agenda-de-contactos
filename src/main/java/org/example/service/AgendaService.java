@@ -59,4 +59,13 @@ public class AgendaService {
     public int espaciosLibres() {
         return agenda.espaciosLibres();
     }
+
+    public ResultadoOperacion expandirAgenda(int nuevaCapacidad) {
+        try {
+            agenda.expandirCapacidad(nuevaCapacidad);
+            return ResultadoOperacion.exito("Capacidad actualizada a " + nuevaCapacidad);
+        } catch (Exception e) {
+            return ResultadoOperacion.error(e.getMessage());
+        }
+    }
 }
