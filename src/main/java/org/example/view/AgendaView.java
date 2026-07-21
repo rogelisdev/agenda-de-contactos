@@ -18,6 +18,7 @@ public class AgendaView {
     JButton buttonAgregar = new JButton("Agregar");
     JButton buttonActualizar = new JButton("Actualizar");
     JButton buttonEliminar = new JButton("Eliminar");
+    JButton buttonBuscar = new JButton("Buscar");
 
     //Textos de la ventana
     JLabel labelNombre = new JLabel("Nombre: ");
@@ -26,12 +27,16 @@ public class AgendaView {
     JLabel labelEmail = new JLabel("Correo: ");
     JLabel labelTitulo = new JLabel("REGISTRO");
     JLabel labelContactos = new JLabel("CONTACTOS");
+    JLabel labelBuscar = new JLabel("Buscar: ");
+    JLabel labelResultado = new JLabel("Resultado: ");
+    JLabel resultado = new JLabel("");
 
     //Campos de texto para el usuario
     JTextField nombre = new JTextField();
     JTextField apellido = new JTextField();
     JTextField telefono = new JTextField();
     JTextField email = new JTextField();
+    JTextField buscar = new JTextField();
 
     //Menu
     JMenuBar menuBar = new JMenuBar();
@@ -39,11 +44,11 @@ public class AgendaView {
     JMenuItem crear = new JMenuItem("Crear");
     JMenuItem actualizar = new JMenuItem("Actualizar");
     JMenuItem eliminar = new JMenuItem("Eliminar");
-    JMenuItem buscar = new JMenuItem("Buscar");
+    //JMenuItem buscar = new JMenuItem("Buscar");
 
     public void vista(){
        try {
-           frame.setSize(950,800);
+           frame.setSize(950,600);
 
            menu.add(crear);
            menu.add(actualizar);
@@ -71,6 +76,15 @@ public class AgendaView {
            //Tabla contactos
            scroll.setBounds(450, 75, 400, 200);
 
+           //Búsqueda
+           labelBuscar.setBounds(450, 330, 70, 30);
+           buscar.setBounds(520, 330, 200, 30);
+           buttonBuscar.setBounds(730, 330, 100, 30);
+
+           //Resultado de búsqueda
+           labelResultado.setBounds(450, 380, 70, 30);
+           resultado.setBounds(520, 380, 250, 30);
+
            //Botones
            buttonAgregar.setBounds(200,260,100,25);
            buttonActualizar.setBounds(750,280,100,25);
@@ -79,6 +93,7 @@ public class AgendaView {
            //Fuentes
            labelTitulo.setFont(new Font("Serif", Font.BOLD, 24));
            labelContactos.setFont(new Font("Serif", Font.BOLD, 24));
+
 
            frame.add(nombre);
            frame.add(apellido);
@@ -90,12 +105,15 @@ public class AgendaView {
            frame.add(labelEmail);
            frame.add(labelTitulo);
            frame.add(labelContactos);
-
            frame.add(buttonAgregar);
            frame.add(buttonActualizar);
            frame.add(buttonEliminar);
-
            frame.add(scroll);
+           frame.add(labelBuscar);
+           frame.add(buscar);
+           frame.add(buttonBuscar);
+           frame.add(labelResultado);
+           frame.add(resultado);
 
            //Configuración del frame
            frame.setLayout(null);
